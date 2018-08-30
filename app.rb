@@ -16,16 +16,12 @@ class Bookmarks < Sinatra::Base
     erb(:'bookmarks/index')
   end
 
-  post '/bookmarks' do
-    @bookmarks = Bookmark.all
-  end
-
   get '/bookmarks/new' do
     erb(:'bookmarks/new')
   end  
 
   post '/bookmarks/new' do
-    flash[:notice] = "Invalid URL" unless !!(Bookmark.create(url: params[:url], title: params[:title]))
+    flash[:notice] = "Invalid URL" unless Bookmark.create(url: params[:url], title: params[:title])
     redirect(:'/bookmarks')
   end
 
